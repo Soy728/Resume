@@ -46,7 +46,7 @@ namespace MINTSCAN {
 				'Firebase Storage',
 				'Firebase Functions'
 			],
-			duration: { start: new Date('2024-07'), end: new Date('2024-09') },
+			duration: { start: new Date('2024-05'), end: new Date('2024-12') },
 			experience: [
 				'Firestore DB를 이용한 광고 데이터 CRUD 기능 개발',
 				'Firebase Storage의 용량 감소를 위해 이미지 파일을 WebP 형식으로 전환하여 저장 공간 50% 절감',
@@ -62,7 +62,7 @@ namespace MINTSCAN {
 				'서비스 런칭 이후 트래픽이 40% 이상 증가했고, 일간 사용자 수 8000명 이상을 보유하고 있습니다.'
 			],
 			skills: ['Svelte', 'Svelte-store', 'Sass', 'TypeScript'],
-			duration: { start: new Date('2024-07'), end: new Date('2024-09') },
+			duration: { start: new Date('2023-09'), end: new Date('2024-04') },
 			experience: [
 				'복잡한 상태관리를 위해 싱글톤 패턴의 클래스와 전역 상태 관리(svelte-store)를 이용한 이자 받기 기능 구현',
 				'탬플릿 메서드 패턴을 활용하여 코어 기능을 공통화하고, 변경이 필요한 메서드를 추상 메서드로 정의하여 관리',
@@ -82,7 +82,7 @@ namespace INTERN {
 			name: '민트스캔 버전 업그레이드',
 			intro: [],
 			skills: ['Svelte', 'TypeScript', 'Sass'],
-			duration: { start: new Date('2022-09'), end: new Date('2023-02') },
+			duration: { start: new Date('2022-09'), end: new Date('2023-02-25') },
 			experience: [
 				'React 기반의 웹 사이트를 Svelte로 마이그레이션',
 				'웹 / 테블릿 / 모바일 등 다양한 디바이스에 대응되는 반응형 컴포넌트 및 웹 서비스 구현',
@@ -127,7 +127,7 @@ export const career: Career[] = [
 	{
 		company: '주식회사 스탬퍼 (인턴)',
 		department: '웹 서비스 개발 FE 팀 인턴',
-		duration: { start: new Date('2022-09'), end: new Date('2023-02') },
+		duration: { start: new Date('2022-09'), end: new Date('2023-02-25') },
 		intro: [],
 		project: INTERN.projects
 	}

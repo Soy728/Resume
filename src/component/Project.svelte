@@ -1,17 +1,25 @@
 <script lang="ts">
 	import { career } from '$lib/career';
 	import { Format } from '../util/format';
+	import type { TimelineRow } from './Timeline';
+	import Timeline from './Timeline.svelte';
 
 	export let projects = career.flatMap((c) => c.project.map((p) => ({ ...p, company: c.company })));
+	const timelineData: TimelineRow[] = projects.map((c) => ({
+		name: c.name,
+		description: c.company,
+		duration: c.duration
+	}));
 </script>
 
 <section class="flex w-full flex-col justify-center gap-8">
 	<h2 class="text-xl font-semibold text-lime-500">Project</h2>
 
+	<Timeline row={timelineData} />
+
 	<div class="w-full divide-y divide-gray-200/70">
 		{#each projects as item (item.name)}
 			<article class="grid grid-cols-1 gap-4 py-12 first:pt-0 md:grid-cols-12">
-				<!-- 좌측: 프로젝트명 / 기간 (+회사) -->
 				<div class="md:col-span-4 lg:col-span-3">
 					<div class="text-lg font-semibold text-gray-900">{item.name}</div>
 					{#if item.company}
@@ -22,7 +30,6 @@
 					</div>
 				</div>
 
-				<!-- 우측: 소개 / 스킬 / 경험 -->
 				<div class="md:col-span-8 lg:col-span-9">
 					{#if item.intro?.length}
 						<div class="pb-5 text-[15px] leading-7 text-gray-700">

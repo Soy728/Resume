@@ -1,14 +1,26 @@
 import type { Duration } from '$lib/career';
+import _ from 'lodash';
 import { Format } from '../util/format';
 
 export type TimelineRow = { name: string; description: string; duration: Duration };
+type TimelineBar = {
+	row: TimelineRow;
+	start: number;
+	end: number;
+	x: number;
+	width: number;
+	lane?: number;
+};
+
 export function getTimeline(rows: TimelineRow[]) {
 	const { min, max } = getMinMax(rows);
 
 	const bars = measureBars({ rows, min, max });
-	const ticks = [0, 0.25, 0.5, 0.75, 1].map((p) => min + p * (max - min));
+	const ticks = [0, 0.2, 0.4, 0.6, 0.8, 1].map((p) => min + p * (max - min));
 
-	return { min, max, bars, ticks };
+	const packed = packBars(bars);
+
+	return { min, max, ticks, packed };
 }
 function getMinMax(rows: TimelineRow[]) {
 	const min = Math.min(...rows.map((v) => Format.toEpoch(v.duration.start)));
@@ -36,4 +48,33 @@ function measureBars(arg: { rows: TimelineRow[]; min: number; max: number }) {
 		const x1 = scaleX({ data: end, min, max });
 		return { row: r, x: x0, width: x1 - x0, start, end };
 	});
+}
+
+function packBars(bars: TimelineBar[]) {
+	const sorted = _(bars)
+		.sortBy((b) => b.start)
+		.value();
+
+	const result: TimelineBar[][] = [];
+
+	for (const bar of sorted) {
+		let placed = false;
+
+		for (let i = 0; i < result.length; i++) {
+			const lane = result[i];
+			const last = lane[lane.length - 1];
+
+			if (last.end <= bar.start) {
+				lane.push(bar);
+				placed = true;
+				break;
+			}
+		}
+
+		if (!placed) {
+			result.push([bar]);
+		}
+	}
+
+	return result;
 }
